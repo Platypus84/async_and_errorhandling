@@ -18,9 +18,10 @@ class _MainAppState extends State<MainApp> {
   Future<String> tripleText(String value) async {
     await Future.delayed(const Duration(seconds: 3));
     try {
+      //value = null!; // Test mit Fehlererzeugung
       return value + value + value;
     } catch (e) {
-      return 'Error';
+      return 'Folgender Fehler ist bei der Ausgabe aufgetreten: $e';
     }
   }
 
@@ -43,26 +44,29 @@ class _MainAppState extends State<MainApp> {
       home: Scaffold(
         body: SafeArea(
           child: Center(
-            child: Column(
-              children: [
-                SizedBox(height: 24),
-                Text(
-                  text,
-                  style: TextStyle(fontSize: 24, color: Colors.purple),
-                ),
-                SizedBox(height: 24),
-                Visibility(
-                  visible: isLoading,
-                  child: CircularProgressIndicator(),
-                ),
-                SizedBox(height: 24),
-                FilledButton(
-                  onPressed: () {
-                    submit();
-                  },
-                  child: Text('Press me'),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  SizedBox(height: 24),
+                  Text(
+                    text,
+                    style: TextStyle(fontSize: 24, color: Colors.purple),
+                  ),
+                  SizedBox(height: 24),
+                  Visibility(
+                    visible: isLoading,
+                    child: CircularProgressIndicator(),
+                  ),
+                  SizedBox(height: 24),
+                  FilledButton(
+                    onPressed: () {
+                      submit();
+                    },
+                    child: Text('Press me'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
