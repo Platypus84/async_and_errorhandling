@@ -13,13 +13,14 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   String text = 'Go';
+  late String newText;
   bool isLoading = false;
 
-  Future<String> tripleText(String value) async {
+  Future<String> tripleText(String text) async {
     await Future.delayed(const Duration(seconds: 3));
     try {
       //value = null!; // Test mit Fehlererzeugung
-      return value + value + value;
+      return text + text + text;
     } catch (e) {
       return 'Folgender Fehler ist bei der Ausgabe aufgetreten: $e';
     }
@@ -31,9 +32,10 @@ class _MainAppState extends State<MainApp> {
       isLoading = true;
     });
 
-    text = await tripleText(text);
+    newText = await tripleText(text);
 
     setState(() {
+      text = newText;
       isLoading = false;
     });
   }
